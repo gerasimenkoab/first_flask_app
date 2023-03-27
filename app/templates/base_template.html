@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+        <title>
+            {% if title %}
+                {{title}} browser app.
+            {% else %}
+                First browser app.
+            {% endif %}
+        </title>
+    </head>
+    <body>
+        <div>Links: <a href="/">Home</a> <a href="/index">Index</a> <a href="/shmindex">OMG</a></div>
+        {% block content1 %} {%endblock%}
+    </body>
+</html>
