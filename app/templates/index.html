@@ -1,7 +1,7 @@
 {% extends "base_template.html" %}
     {% block content1 %}
         
-        {% if elem %}
+        {% if phraselist %}
             {%for elem in phraselist %}
                 <div><p>{{elem.number}}. {{elem.person.username}} message: <b>{{elem.msg}} </b></p></div>
             {% endfor %}
