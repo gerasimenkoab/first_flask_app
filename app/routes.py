@@ -1,8 +1,9 @@
-from flask import render_template
+from flask import render_template, flash, redirect, url_for
 from app import app
+from app.forms import LoginForm
 
 @app.route('/')
-def index_1():
+def chat():
     user = {"username":"Vasili"}
     elem_list = [
         {
@@ -20,9 +21,13 @@ def index_1():
     return(html_code)
 
 @app.route('/index')
-def index_2():
-    return(render_template("index.html",title="The best", user ={"username":"Pepega"}))
+def index():
+    return(render_template("index.html", title="The best", user ={"username":"Pepega"}))
 
-@app.route('/shmindex')
-def index_3():
-    return(render_template("base_template.html"))
+@app.route('/login', methods = ["GET","POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested on user {}, remember_me = {}'.format(form.username.data, form.remember_me.data))
+        return redirect(url_for('index'))
+    return(render_template("login.html", title="sign In", form = form))

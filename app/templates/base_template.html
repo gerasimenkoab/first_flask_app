@@ -1,16 +1,30 @@
 <!doctype html>
 <html>
+
     <head>
         <title>
             {% if title %}
-                {{title}} browser app.
+            {{title}} browser app.
             {% else %}
-                First browser app.
+            First browser app.
             {% endif %}
         </title>
     </head>
+
     <body>
-        <div>Links: <a href="/">Home</a> <a href="/index">Index</a> <a href="/shmindex">OMG</a></div>
-        {% block content1 %} {%endblock%}
+        <div>
+            Links: <a href="/">Home</a> <a href="/index">Index</a> <a href="/login">Login</a>
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for msg in messages %}
+                <li>{{ msg }}</li>
+                {%endfor%}
+            </ul>
+            {% endif %}
+        {% endwith %}
+        {% block content %} {%endblock%}
     </body>
+
 </html>
