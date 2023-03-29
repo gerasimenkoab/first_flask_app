@@ -1,1 +1,1 @@
-FLASK_APP=browser_app.py
+FLASK_APP = browser_app.py
