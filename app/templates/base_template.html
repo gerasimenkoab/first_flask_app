@@ -13,7 +13,14 @@
 
     <body>
         <div>
-            Links: <a href="/">Home</a> <a href="/index">Index</a> <a href="/login">Login</a>
+            Links: <a href="/">Home</a>
+             <a href="/index">Index</a>
+             {% if current_user.is_anonimous %}
+              <a href="/login">Login</a>
+             {% else %}
+             <a href="/logout">Logout</a>
+             {% endif %}
+
         </div>
         {% with messages = get_flashed_messages() %}
             {% if messages %}

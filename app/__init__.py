@@ -6,9 +6,10 @@ from flask_login import LoginManager
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app) # creating database instance for app
+login = LoginManager(app)
+login.login_view = 'login' # define login page for auto-redirect
 from app import models
 migrate = Migrate(app, db) # creating db migration instance for app and db object
-login = LoginManager(app)
 
 from app import routes
 
