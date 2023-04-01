@@ -7,9 +7,6 @@ from app.models import User
 from werkzeug.urls import url_parse
 
 @app.route('/')
-def hhh():
-    return(render_template("base_template.html", title="The best"))
-
 @app.route('/index')
 @login_required # setting login restricion on page view
 def index():
@@ -23,13 +20,14 @@ def index():
         'body': 'The Avengers movie was so cool!'
     }
     ]
-    html_code = render_template('index.html', title ="My", posts = posts)
+    html_code = render_template('index.html', title ="Index", posts = posts)
     return(html_code)
 
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
     if current_user.is_authenticated:
+        print('redirect to ',url_for('index'))
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
@@ -42,9 +40,9 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    #return(render_template("login.html", title="sign In", form = form))
+    return(render_template('login.html', title="Sign In", form = form))
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET','POST'])
 def logout():
     logout_user()
     return redirect(url_for('index'))
