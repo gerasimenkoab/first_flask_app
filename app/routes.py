@@ -62,9 +62,9 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/user/<username>')
-@login.required
+@login_required
 def user(username):
-    user = User.query.filter_by(username = username).error_or_404()
+    user = User.query.filter_by(username = username).first_or_404()
     #posts filler:
     posts = [
         {'author':user, 'body':'Post message 1'},
