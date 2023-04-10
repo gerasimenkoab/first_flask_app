@@ -15,12 +15,18 @@ class User(UserMixin, db.Model):
     def set_password(self, password):
         """generating hash for password"""
         self.password_hash = generate_password_hash(password)
+
     def check_password(self, password):
         """checking hash and password coincidence"""
         return check_password_hash(self.password_hash, password)
     
     def __repr__(self):
         return '<User {}>'.format(self.username)
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
+
     
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
