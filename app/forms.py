@@ -28,7 +28,7 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use different email address.')
         
-class EditProfileForm:
+class EditProfileForm(FlaskForm):
     """Class for profile edit"""
     username = StringField('Username',validators=[DataRequired()])
     about_me = TextAreaField('Text about me', validators = [Length(min = 0, max = 200)])
