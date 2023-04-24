@@ -11,5 +11,5 @@ login.login_view = 'login' # define login page for auto-redirect
 from app import models
 migrate = Migrate(app, db) # creating db migration instance for app and db object
 
-from app import routes
+from app import routes,errors
 
