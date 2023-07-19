@@ -2,6 +2,7 @@ from datetime import datetime
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from flask import url_for
 from app import login
 from hashlib import md5
 
@@ -13,6 +14,20 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default = datetime.utcnow)
+
+    def to_dict(self, include_email = False):
+        data ={
+            "id" : self.id,
+            "username":self.username,
+            "last_seen": self.last_seen, #.isoformat() + 'Z',
+            "about_me": self.about_me,
+            "_links":{
+                'self':url_for('api.get_user', id = self.id)
+            }
+        }
+        if include_email:
+            data['email'] = self.email
+        return data
 
     def set_password(self, password):
         """generating hash for password"""
