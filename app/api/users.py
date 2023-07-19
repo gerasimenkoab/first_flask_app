@@ -23,3 +23,8 @@ def create_user():
 @bp.route('/users/<int:id>', methods = ["PUT"])
 def modify_user():
     pass
+
+@ bp.route('/users/<int:id>', methods = ["DELETE"])
+def delete_user():
+    pass
+

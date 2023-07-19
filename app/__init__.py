@@ -16,16 +16,21 @@ migrate = Migrate(app, db) # creating db migration instance for app and db objec
 
 from app import routes,errors
 
+# adding api blueprint 
+from app.api import bp as app_bp
+app.register_blueprint( app_bp, url_prefix = '/api' )
+
+
 if not app.debug:
     # if not in the debug mode
     if not os.path.exists('logs'):
         os.mkdir('logs')
     # creating logfile handler. Type - rotatingFileHandler
-    file_handler = RotatingFileHandler('logs/microblog.log', maxBytes = 1024, backupCount = 10)
+    file_handler = RotatingFileHandler( 'logs/microblog.log', maxBytes = 1024, backupCount = 10 )
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s [in %(pathmname)s: %(lineno)d]'
     ))
-    file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
-    app.logger.setLevel(logging.INFO)
+    file_handler.setLevel( logging.INFO )
+    app.logger.addHandler( file_handler )
+    app.logger.setLevel( logging.INFO )
     #app.logger.info('Microblog startup')
